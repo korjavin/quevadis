@@ -3,7 +3,7 @@ version: "3.8"
 services:
   quevadis:
     # The image tag will be replaced by GitHub Actions workflow in the deploy branch
-    image: ghcr.io/korjavin/quevadis:latest
+    image: ghcr.io/korjavin/quevadis:a7a836739c555fa1a8fbcbbedfca4926a48e48b9
     container_name: quevadis
     networks:
       - traefik_network
