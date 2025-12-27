@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quo Vadis - Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Sidebar for controls and online users -->
+        <div id="sidebar">
+            <!-- Connection status -->
+            <div id="connection-status" class="disconnected">Connecting...</div>
+            <div id="welcome-message">Connecting...</div>
+
+            <!-- Rules -->
+            <div class="sidebar-section">
+                <h3>Rules</h3>
+                <div class="rules-info">
+                    <p><strong>Goal:</strong> Reach the Finish first!</p>
+                    <p><strong>Bid:</strong> Bid stones to move forward.</p>
+                    <p><strong>All-pay:</strong> Both lose their bid!</p>
+                    <p><strong>Budget:</strong> 20 stones each.</p>
+                    <p><strong>Steps:</strong> 3 steps to win.</p>
+                </div>
+            </div>
+
+            <!-- Online players -->
+            <div class="sidebar-section">
+                <h3>Online Players</h3>
+                <div id="users-list">
+                    <div class="no-users">Connecting to server...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main game area -->
+        <div id="main-content">
+            <div id="game-container">
+                <h1>Quo Vadis</h1>
+
+                <!-- Bridge/Track Visualization -->
+                <div id="bridge-container">
+                    <div class="bridge-label">START</div>
+                    <div id="bridge">
+                        <div class="bridge-slot" data-pos="0">
+                            <span class="slot-label">Start</span>
+                            <div class="player-markers">
+                                <div class="player-marker p1" id="p1-pos-0">X</div>
+                                <div class="player-marker p2" id="p2-pos-0">O</div>
+                            </div>
+                        </div>
+                        <div class="bridge-slot" data-pos="1">
+                            <span class="slot-label">Step 1</span>
+                            <div class="player-markers">
+                                <div class="player-marker p1" id="p1-pos-1"></div>
+                                <div class="player-marker p2" id="p2-pos-1"></div>
+                            </div>
+                        </div>
+                        <div class="bridge-slot" data-pos="2">
+                            <span class="slot-label">Step 2</span>
+                            <div class="player-markers">
+                                <div class="player-marker p1" id="p1-pos-2"></div>
+                                <div class="player-marker p2" id="p2-pos-2"></div>
+                            </div>
+                        </div>
+                        <div class="bridge-slot finish" data-pos="3">
+                            <span class="slot-label">Finish</span>
+                            <div class="player-markers">
+                                <div class="player-marker p1" id="p1-pos-3"></div>
+                                <div class="player-marker p2" id="p2-pos-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bridge-label">FINISH</div>
+                </div>
+
+                <!-- Player Displays -->
+                <div id="players-display">
+                    <div id="p1-display" class="player-display p1">
+                        <div class="player-avatar">X</div>
+                        <div class="player-info">
+                            <span class="player-name" id="p1-name">You (X)</span>
+                            <span class="player-balance">Balance: <span id="p1-balance">20</span></span>
+                            <span class="player-position">Position: <span id="p1-position">0</span>/3</span>
+                        </div>
+                    </div>
+                    <div id="p2-display" class="player-display p2">
+                        <div class="player-avatar">O</div>
+                        <div class="player-info">
+                            <span class="player-name" id="p2-name">Opponent (O)</span>
+                            <span class="player-balance">Balance: <span id="p2-balance">20</span></span>
+                            <span class="player-position">Position: <span id="p2-position">0</span>/3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Display -->
+                <div id="status">Connect to start playing!</div>
+
+                <!-- Bidding Controls -->
+                <div id="bidding-controls" style="display: none;">
+                    <div class="bid-info">
+                        <span id="current-turn">Round 1</span>
+                    </div>
+                    <div class="bid-input-group">
+                        <label for="bid-input">Your Bid:</label>
+                        <input type="number" id="bid-input" min="0" max="20" value="1">
+                        <button id="submit-bid-button">Submit Bid</button>
+                    </div>
+                    <div id="bidding-status">Waiting for opponent...</div>
+                </div>
+
+                <!-- Bid Reveal Animation -->
+                <div id="bid-reveal" style="display: none;">
+                    <div class="reveal-content">
+                        <h3>Round <span id="reveal-round">1</span></h3>
+                        <div class="reveal-bids">
+                            <div class="reveal-bid p1">
+                                <span class="bidder">X</span>
+                                <span class="bid-value" id="reveal-p1-bid">-</span>
+                            </div>
+                            <div class="reveal-bid p2">
+                                <span class="bidder">O</span>
+                                <span class="bid-value" id="reveal-p2-bid">-</span>
+                            </div>
+                        </div>
+                        <div class="reveal-result" id="reveal-result"></div>
+                    </div>
+                </div>
+
+                <!-- Game Controls -->
+                <div id="game-controls">
+                    <button id="resign-button" style="display: none;">Resign</button>
+                    <button id="rematch-button" style="display: none;">Request Rematch</button>
+                </div>
+
+                <!-- Game History/Log -->
+                <div id="game-log">
+                    <h3>Game Log</h3>
+                    <div id="log-entries"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications container -->
+    <div id="notifications"></div>
+
+    <script src="script.js"></script>
+    <script src="multiplayer.js"></script>
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initGame();
+            if (typeof mpClient !== 'undefined') {
+                mpClient.connect();
+            }
+        });
+    </script>
+</body>
+</html>

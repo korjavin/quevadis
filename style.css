@@ -1,0 +1,688 @@
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e8e8e8;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+#sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sidebar h3 {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Connection Status */
+#connection-status {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#connection-status.connected {
+    background: rgba(76, 175, 80, 0.3);
+    color: #81c784;
+}
+
+#connection-status.disconnected {
+    background: rgba(244, 67, 54, 0.3);
+    color: #e57373;
+}
+
+#welcome-message {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+/* Game Mode Toggle */
+.game-mode-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mode-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-button.active {
+    background: #ffd700;
+    color: #1a1a2e;
+    font-weight: bold;
+}
+
+.mode-button:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Rules Info */
+.rules-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.rules-info p {
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+.rules-info p:last-child {
+    margin-bottom: 0;
+}
+
+.rules-info strong {
+    color: #ffd700;
+}
+
+/* Buttons */
+.sidebar-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Users List */
+.users-section {
+    border-bottom: none;
+}
+
+#users-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.user-item.in-game {
+    opacity: 0.5;
+}
+
+.user-name {
+    font-size: 14px;
+}
+
+.challenge-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background: #ffd700;
+    color: #1a1a2e;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.challenge-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.no-users {
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Main Content */
+#main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+#game-container {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+#game-container h1 {
+    font-size: 48px;
+    color: #ffd700;
+    margin-bottom: 40px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+/* Bridge Visualization */
+#bridge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.bridge-label {
+    font-size: 12px;
+    color: #666;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+#bridge {
+    display: flex;
+    gap: 15px;
+}
+
+.bridge-slot {
+    width: 150px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.bridge-slot.finish {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.slot-label {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.player-markers {
+    display: flex;
+    gap: 15px;
+}
+
+.player-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.player-marker.p1 {
+    background: #4CAF50;
+    color: white;
+}
+
+.player-marker.p2 {
+    background: #f44336;
+    color: white;
+}
+
+.player-marker.active {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Player Displays */
+#players-display {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 30px;
+}
+
+.player-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    min-width: 220px;
+}
+
+.player-display.p1 {
+    border: 2px solid #4CAF50;
+}
+
+.player-display.p2 {
+    border: 2px solid #f44336;
+}
+
+.player-display.active {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.player-display.p1 .player-avatar {
+    background: #4CAF50;
+    color: white;
+}
+
+.player-display.p2 .player-avatar {
+    background: #f44336;
+    color: white;
+}
+
+.player-info {
+    text-align: left;
+}
+
+.player-name {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.player-balance {
+    display: block;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.player-position {
+    display: block;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Status */
+#status {
+    font-size: 18px;
+    margin-bottom: 20px;
+    min-height: 30px;
+}
+
+#status.your-turn {
+    color: #4CAF50;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Bidding Controls */
+#bidding-controls {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.bid-info {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #ffd700;
+}
+
+.bid-input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.bid-input-group label {
+    font-size: 16px;
+}
+
+#bid-input {
+    width: 80px;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+#bid-input:focus {
+    outline: none;
+    border-color: #ffd700;
+}
+
+#submit-bid-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit-bid-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+}
+
+#submit-bid-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+#bidding-status {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Bid Reveal Animation */
+#bid-reveal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.reveal-content {
+    background: rgba(30, 30, 50, 0.95);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.reveal-content h3 {
+    color: #ffd700;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.reveal-bids {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.reveal-bid {
+    text-align: center;
+}
+
+.reveal-bid .bidder {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.reveal-bid.p1 .bidder {
+    background: #4CAF50;
+    color: white;
+}
+
+.reveal-bid.p2 .bidder {
+    background: #f44336;
+    color: white;
+}
+
+.reveal-bid .bid-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.reveal-result {
+    font-size: 20px;
+    color: #fff;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* Game Controls */
+#game-controls {
+    margin-top: 20px;
+}
+
+#resign-button, #rematch-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+#rematch-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#resign-button:hover, #rematch-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Game Log */
+#game-log {
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+}
+
+#game-log h3 {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+#log-entries {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.log-entry.win {
+    border-left: 3px solid #4CAF50;
+}
+
+.log-entry.lose {
+    border-left: 3px solid #f44336;
+}
+
+.log-entry.draw {
+    border-left: 3px solid #ffd700;
+}
+
+/* Notifications */
+#notifications {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+.notification {
+    background: rgba(30, 30, 50, 0.95);
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.notification.challenge {
+    border: 2px solid #ffd700;
+}
+
+.notification.error {
+    border: 2px solid #f44336;
+}
+
+.notification.success {
+    border: 2px solid #4CAF50;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Challenge Buttons */
+.challenge-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.accept-btn, .decline-btn {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.accept-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.decline-btn {
+    background: #f44336;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    #bridge {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .bridge-slot {
+        width: 120px;
+        height: 100px;
+    }
+
+    #players-display {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .player-display {
+        min-width: 200px;
+    }
+}
