@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  quevadis:
+    # The image tag will be replaced by GitHub Actions workflow in the deploy branch
+    image: ghcr.io/korjavin/quevadis:latest
+    container_name: quevadis
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.quevadis.rule=Host(`${HOSTNAME}`)"
+      - "traefik.http.routers.quevadis.entrypoints=websecure"
+      - "traefik.http.routers.quevadis.tls.certresolver=myresolver"
+      - "traefik.http.services.quevadis.loadbalancer.server.port=8080"
+    restart: unless-stopped
+    environment:
+      - PORT=8080
+
+networks:
+  traefik_network:
+    name: ${NETWORK_NAME:-traefik_network}
+    external: true
