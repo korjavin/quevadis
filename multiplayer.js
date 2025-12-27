@@ -278,7 +278,7 @@ class MultiplayerClient {
 
     acceptChallenge(challengeId) {
         // Remove notification
-        const notification = document.querySelector(`.challenge-notification[data-challenge-id="${challengeId}"]`);
+        const notification = document.querySelector(`.notification.challenge[data-challenge-id="${challengeId}"]`);
         if (notification) {
             notification.remove();
         }
@@ -292,7 +292,7 @@ class MultiplayerClient {
 
     declineChallenge(challengeId) {
         // Remove notification
-        const notification = document.querySelector(`.challenge-notification[data-challenge-id="${challengeId}"]`);
+        const notification = document.querySelector(`.notification.challenge[data-challenge-id="${challengeId}"]`);
         if (notification) {
             notification.remove();
         }
